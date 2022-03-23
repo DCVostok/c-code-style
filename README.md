@@ -63,7 +63,7 @@ int32_t a = sum (4, 3);             /* Wrong */
 size_t i;
 for (i = 0; i < 5; ++i) {           /* OK */
 }
-for (i = 0; i < 5; ++i) {           /* Wrong */
+for (i = 0; i < 5; ++i){           /* Wrong */
 }
 for (i = 0; i < 5; ++i)             /* Wrong */
 {

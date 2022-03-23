@@ -9,7 +9,7 @@
 typedef enum {
     E_TEST_ENUM_TEST_1,
     E_TEST_ENUM_TEST_2,
-    E_TEST_ENUM_TEST_2
+    E_TEST_ENUM_TEST_3
 } e_test_enum_t;
 
 int32_t sum(int32_t a, int32_t b) {
@@ -18,8 +18,8 @@ int32_t sum(int32_t a, int32_t b) {
 
 int32_t test(int32_t a, int32_t b) {
 
-    size_t   i;
-    uint64_t data;
+    size_t    i;
+    uint64_t* data;
 
     while (1) {}
 
