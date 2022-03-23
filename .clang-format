@@ -13,6 +13,7 @@ AllowShortFunctionsOnASingleLine: Empty
 SortIncludes: true
 IncludeBlocks: Regroup
 BreakBeforeBraces: Attach
+ColumnLimit: 200
 ---
 Language: Cpp
 # Force pointers to the type for C++.
