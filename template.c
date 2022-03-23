@@ -4,7 +4,7 @@
  */
 
 /*
- * Copyright (c) 2022 Tilen MAJERLE
+ * Copyright (c) 2022 Liamaev Mikhail
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -28,7 +28,7 @@
  *
  * This file is part of my_library.
  *
- * Author:          Tilen MAJERLE <tilen@majerle.eu>
+ * Author:          Liamaev Mikhail <misha25_live@mail.ru>
  * Version:         v1.y.z
  */
 #include "template.h"
@@ -39,7 +39,7 @@
  * \param[in]       b: Second value
  * \return          Sum of input values
  */
-int32_t
-sum(int32_t a, int32_t b) {
+int32_t sum(int32_t a, int32_t b)
+{
     return a + b;
 }

@@ -1,6 +1,6 @@
 # Recommended C style and coding rules
 
-This document describes C code style used by Tilen MAJERLE in his projects and libraries.
+This document describes C code style used by DC Vostok in his projects and libraries.
 
 ## Table of Contents
 
@@ -16,8 +16,6 @@ This document describes C code style used by Tilen MAJERLE in his projects and l
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
   - [Documentation](#documentation)
   - [Header/source files](#headersource-files)
-  - [Artistic Style configuration](#artistic-style-configuration)
-  - [Eclipse formatter](#eclipse-formatter)
 
 ## The single most important rule
 
@@ -65,7 +63,7 @@ int32_t a = sum (4, 3);             /* Wrong */
 size_t i;
 for (i = 0; i < 5; ++i) {           /* OK */
 }
-for (i = 0; i < 5; ++i){            /* Wrong */
+for (i = 0; i < 5; ++i) {           /* Wrong */
 }
 for (i = 0; i < 5; ++i)             /* Wrong */
 {
@@ -94,8 +92,7 @@ static int32_t a;       /* OK */
 static int32_t b = 4;   /* OK */
 static int32_t a = 0;   /* Wrong */
 
-void
-my_func(void) {
+void my_func(void) {
     static int32_t* ptr;/* OK */
     static char abc = 0;/* Wrong */
 }
@@ -103,8 +100,7 @@ my_func(void) {
 
 - Declare all local variables of the same type in the same line
 ```c
-void
-my_func(void) {
+void my_func(void) {
     char a;             /* OK */
     char a, b;          /* OK */
     char b;             /* Wrong, variable with char type already exists */
@@ -116,8 +112,7 @@ my_func(void) {
     2. Integer types, wider unsigned type first
     3. Single/Double floating point
 ```c
-int
-my_func(void) {
+int my_func(void) {
     /* 1 */
     my_struct_t my;     /* First custom structures */
     my_struct_ptr_t* p; /* Pointers too */
@@ -161,8 +156,7 @@ for (i = 0; i < 10; ++i) ...
 
 - Avoid variable assignment with function call in declaration, except for single variables
 ```c
-void
-a(void) {
+void a(void) {
     /* Avoid function calls when declaring variable */
     int32_t a, b = sum(1, 2);
 
@@ -222,26 +216,22 @@ for (size_t j = 0; j < 10; ++j) {}  /* OK */
 ```c
 
 /* When d could be modified, data pointed to by d could not be modified */
-void
-my_func(const void* d) {
+void my_func(const void* d) {
 
 }
 
 /* When d and data pointed to by d both could not be modified */
-void
-my_func(const void* const d) {
+void my_func(const void* const d) {
 
 }
 
 /* Not required, it is advised */
-void
-my_func(const size_t len) {
+void my_func(const size_t len) {
 
 }
 
 /* When d should not be modified inside function, only data pointed to by d could be modified */
-void
-my_func(void* const d) {
+void my_func(void* const d) {
 
 }
 ```
@@ -258,41 +248,17 @@ my_func(void* const d) {
  * thus use `void *`
  */
 /* OK example */
-void
-send_data(const void* data, size_t len) { /* OK */
+void send_data(const void* data, size_t len) { /* OK */
     /* Do not cast `void *` or `const void *` */
     const uint8_t* d = data;/* Function handles proper type for internal usage */
 }
 
-void
-send_data(const void* data, int len) {    /* Wrong, not not use int */
+void send_data(const void* data, int len) {    /* Wrong, not not use int */
 }
 ```
 
 - Always use brackets with `sizeof` operator
-- Never use *Variable Length Array* (VLA). Use dynamic memory allocation instead with standard C `malloc` and `free` functions or if library/project provides custom memory allocation, use its implementation
-    - Take a look at [LwMEM](https://github.com/MaJerle/lwmem), custom memory management library
-```c
-/* OK */
-#include <stdlib.h>
-void
-my_func(size_t size) {
-    int32_t* arr;
-    arr = malloc(sizeof(*arr) * n); /* OK, Allocate memory */
-    arr = malloc(sizeof *arr * n);  /* Wrong, brackets for sizeof operator are missing */
-    if (arr == NULL) {
-        /* FAIL, no memory */
-    }
-
-    free(arr);  /* Free memory after usage */
-}
-
-/* Wrong */
-void
-my_func(size_t size) {
-    int32_t arr[size];  /* Wrong, do not use VLA */
-}
-```
+- Never use *Variable Length Array* (VLA) and `malloc` `free`
 
 - Always compare variable against zero, except if it is treated as `boolean` type
 - Never compare `boolean-treated` variables against zero or one. Use NOT (`!`) instead
@@ -354,8 +320,7 @@ if (is_ok == 0)     /* Wrong, use ! for negative check */
 
 - Use `12` indents (`12 * 4` spaces) offset when commenting. If statement is larger than `12` indents, make comment `4-spaces` aligned (examples below) to next available indent
 ```c
-void
-my_func(void) {
+void my_func(void) {
     char a, b;
 
     a = call_func_returning_char_a(a);          /* This is comment with 12*4 spaces indent from beginning of line */
@@ -399,23 +364,16 @@ void set(int32_t a);
 const char * get(void);
 ```
 
-- Function implementation must include return type and optional other keywords in separate line
+- Function implementation must include return type and optional other keywords
 ```c
 /* OK */
-int32_t
-foo(void) {
+int32_t foo(void) {
     return 0;
 }
 
 /* OK */
-static const char*
-get_string(void) {
+static const char* get_string(void) {
     return "Hello world!\r\n";
-}
-
-/* Wrong */
-int32_t foo(void) {
-    return 0;
 }
 ```
 
@@ -436,8 +394,7 @@ int32_t MYVar;
 
 - Group local variables together by `type`
 ```c
-void
-foo(void) {
+void foo(void) {
     int32_t a, b;   /* OK */
     char a;
     char b;         /* Wrong, char type already exists */
@@ -446,8 +403,7 @@ foo(void) {
 
 - Do not declare variable after first executable statement
 ```c
-void
-foo(void) {
+void foo(void) {
     int32_t a;
     a = bar();
     int32_t b;      /* Wrong, there is already executable statement */
@@ -486,7 +442,6 @@ char *p, *n;
 - Structure or enumeration name must be lowercase with optional underscore `_` character between words
 - Structure or enumeration may contain `typedef` keyword
 - All structure members must be lowercase
-- All enumeration members must be uppercase
 - Structure/enumeration must follow doxygen documentation syntax
 
 When structure is declared, it may use one of `3` different options:
@@ -536,9 +491,18 @@ struct name_t {
 
 /* Wrong parameters, must be all uppercase */
 typedef enum {
-    MY_ENUM_TESTA,
-    my_enum_testb,
-} my_enum_t;
+    E_MY_ENUM_TESTA,
+    e_my_enum_testb,
+} e_my_enum_t;
+```
+
+- Enum declarations has to contain `e_` prefix before name.
+- All enumeration members must be uppercase and contain prefix with his name and `E_`.
+```c
+typedef enum {
+    E_MY_ENUM_TEST_A,
+    E_MY_ENUM_TEST_B
+} e_my_enum_t;
 ```
 
 - When initializing structure on declaration, use `C99` initialization style
@@ -1016,8 +980,7 @@ sum(int32_t a, int32_t b) {
  * \param[in]       b: Second number
  * \param[out]      result: Output variable used to save result
  */
-void
-void_sum(int32_t a, int32_t b, int32_t* result) {
+void void_sum(int32_t a, int32_t b, int32_t* result) {
     *result = a + b;
 }
 ```
@@ -1036,8 +999,7 @@ typedef enum {
  * \brief           Check some value
  * \return          \ref MY_OK on success, member of \ref my_enum_t otherwise
  */
-my_enum_t
-check_value(void) {
+my_enum_t check_value(void) {
     return MY_OK;
 }
 ```
@@ -1049,8 +1011,7 @@ check_value(void) {
  * \param[in]       in: Input data
  * \return          Pointer to output data on success, `NULL` otherwise
  */
-const void *
-get_data(const void* in) {
+const void* get_data(const void* in) {
     return in;
 }
 ```
@@ -1158,22 +1119,5 @@ extern "C" {
 
 #endif /* TEMPLATE_HDR_H */
 ```
-
-## Artistic style configuration
-
-[AStyle](http://astyle.sourceforge.net/) is a great piece of software that can
-help with formatting the code based on input configuration.
-
-This repository contains `astyle-code-format.cfg` file which can be used with `AStyle` software.
-
-```
-astyle --options="astyle-code-format.cfg" "input_path/*.c,*.h" "input_path2/*.c,*.h"
-```
-
-## Eclipse formatter
-
-Repository contains `eclipse-ext-kr-format.xml` file that can be used with
-eclipse-based toolchains to set formatter options.
-
-It is based on K&R formatter with modifications to respect above rules.
-You can import it within eclipse settings, `Preferences -> LANGUAGE -> Code Style -> Formatter` tab.
+## .clang-format file
+ Add .clang-format file to project directory.
