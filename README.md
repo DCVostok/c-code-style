@@ -4,8 +4,9 @@ This document describes C code style used by DC Vostok in his projects and libra
 
 ## Table of Contents
 
+- [Recommended C style and coding rules](#recommended-c-style-and-coding-rules)
+  - [Table of Contents](#table-of-contents)
   - [The single most important rule](#the-single-most-important-rule)
-  - [Recommended C style and coding rules](#recommended-c-style-and-coding-rules)
   - [General rules](#general-rules)
   - [Comments](#comments)
   - [Functions](#functions)
@@ -16,6 +17,7 @@ This document describes C code style used by DC Vostok in his projects and libra
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
   - [Documentation](#documentation)
   - [Header/source files](#headersource-files)
+  - [.clang-format file](#clang-format-file)
 
 ## The single most important rule
 
@@ -421,10 +423,10 @@ if (a) {
 }
 ```
 
-- Declare pointer variables with asterisk aligned to type
+- Declare pointer variables with asterisk aligned to type,it has to contain `_ptr` suffix after its name.
 ```c
 /* OK */
-char* a;
+char* a_ptr;
 
 /* Wrong */
 char *a;
@@ -434,7 +436,7 @@ char * a;
 - When declaring multiple pointer variables, you may declare them with asterisk aligned to variable name
 ```c
 /* OK */
-char *p, *n;
+char *p_ptr, *n_ptr;
 ```
 
 ## Structures, enumerations, typedefs
@@ -929,7 +931,7 @@ type_t* list;
 ```
 
 - Every structure/enumeration member must include documentation
-- Use `12x4 spaces` offset for beginning of comment
+- Always aligin documentation text with 1 space
 ```c
 /**
  * \brief           This is point struct
@@ -937,21 +939,22 @@ type_t* list;
  *                      related stuff
  */
 typedef struct {
-    int32_t x;                                  /*!< Point X coordinate */
-    int32_t y;                                  /*!< Point Y coordinate */
-    int32_t size;                               /*!< Point size.
-                                                    Since comment is very big,
-                                                    you may go to next line */
+    int32_t x;    /*!< Point X coordinate */
+    int32_t y;    /*!< Point Y coordinate */
+    int32_t size; /*!< Point size.
+                       Since comment is very big,
+                       you may go to next line */
 } point_t;
 
 /**
  * \brief           Point color enumeration
  */
 typedef enum {
-    COLOR_RED,                                  /*!< Red color. This comment has 12x4
-                                                    spaces offset from beginning of line */
-    COLOR_GREEN,                                /*!< Green color */
-    COLOR_BLUE,                                 /*!< Blue color */
+    COLOR_RED,   /*!< Red color. This comment has aligin
+                      with 1 space. 
+                 */
+    COLOR_GREEN, /*!< Green color */
+    COLOR_BLUE,  /*!< Blue color */
 } point_color_t;
 ```
 
@@ -991,8 +994,8 @@ void void_sum(int32_t a, int32_t b, int32_t* result) {
  * \brief           My enumeration
  */
 typedef enum {
-    MY_ERR,                                     /*!< Error value */
-    MY_OK                                       /*!< OK value */
+    MY_ERR, /*!< Error value */
+    MY_OK   /*!< OK value */
 } my_enum_t;
 
 /**
@@ -1036,6 +1039,8 @@ const void* get_data(const void* in) {
 /**
  * \file            template.h
  * \brief           Template include file
+ * \author          FirstName Lastname <optional_email@example.com>
+ * \copyright       DC Vostok Vladivostok 2022 
  */
                     /* Here is empty line */
 ```
