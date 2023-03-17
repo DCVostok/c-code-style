@@ -1039,8 +1039,7 @@ const void* get_data(const void* in) {
 /**
  * \file            template.h
  * \brief           Template include file
- * \author          FirstName Lastname <optional_email@example.com>
- * \copyright       DC Vostok Vladivostok 2022 
+ * \copyright       DC Vostok, Vladivostok 2023 
  */
                     /* Here is empty line */
 ```
