@@ -1037,7 +1037,7 @@ const void* get_data(const void* in) {
 - Every file must include doxygen annotation for `file` and `brief` description followed by empty line (when using doxygen)
 ```c
 /**
- * \file            template.h
+ * \file
  * \brief           Template include file
  * \copyright       DC Vostok, Vladivostok 2023 
  */
